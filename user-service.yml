@@ -1,0 +1,20 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3307/user_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USERNAME:founderlink}
+    password: ${DB_PASSWORD:founderlink}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+internal:
+  secret: ${INTERNAL_SECRET:local-internal-secret}
+
+logging:
+  level:
+    com.founderlink.user: DEBUG

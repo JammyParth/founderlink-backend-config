@@ -1,0 +1,28 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: startup-service
+  datasource:
+    url: jdbc:mysql://localhost:3308/startup_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USERNAME:founderlink}
+    password: ${DB_PASSWORD:founderlink}
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
+rabbitmq:
+  startup:
+    queue: startup.queue
+    routing-key: startup.created
+    deleted:
+      routing-key: startup.deleted
+  investment:
+    deleted:
+      queue: investment.startup.deleted.queue
+
+logging:
+  level:
+    com.founderlink.startup: DEBUG
