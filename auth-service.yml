@@ -6,7 +6,6 @@ spring:
     name: auth-service
   datasource:
     url: jdbc:mysql://localhost:3306/auth_service_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME:founderlink}
     password: ${DB_PASSWORD:founderlink}
   jpa:
