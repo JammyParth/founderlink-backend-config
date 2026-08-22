@@ -9,26 +9,68 @@ spring:
       server:
         webflux:
           routes:
+            # ── Swagger API-docs routes (strip service prefix before forwarding) ──
+            - id: auth-service-swagger
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth/v3/api-docs/**
+              filters:
+                - RewritePath=/auth/(?<remaining>.*), /${remaining}
+
+            - id: user-service-swagger
+              uri: lb://user-service
+              predicates:
+                - Path=/users/v3/api-docs/**
+              filters:
+                - RewritePath=/users/(?<remaining>.*), /${remaining}
+
+            - id: startup-service-swagger
+              uri: lb://startup-service
+              predicates:
+                - Path=/startup/v3/api-docs/**
+              filters:
+                - RewritePath=/startup/(?<remaining>.*), /${remaining}
+
+            - id: investment-service-swagger
+              uri: lb://investment-service
+              predicates:
+                - Path=/investments/v3/api-docs/**
+              filters:
+                - RewritePath=/investments/(?<remaining>.*), /${remaining}
+
+            - id: notification-service-swagger
+              uri: lb://notification-service
+              predicates:
+                - Path=/notifications/v3/api-docs/**
+              filters:
+                - RewritePath=/notifications/(?<remaining>.*), /${remaining}
+
+            # ── Service routes ──
             - id: auth-service
               uri: lb://auth-service
               predicates:
                 - Path=/auth/**
+
             - id: user-service
               uri: lb://user-service
               predicates:
                 - Path=/users/**
+
             - id: startup-service
               uri: lb://startup-service
               predicates:
                 - Path=/startup/**
+
             - id: investment-service
               uri: lb://investment-service
               predicates:
                 - Path=/investments/**
+
             - id: notification-service
               uri: lb://notification-service
               predicates:
                 - Path=/notifications/**
+
           globalcors:
             cors-configurations:
               '[/**]':
@@ -57,6 +99,7 @@ gateway:
       - /v3/api-docs
       - /v3/api-docs/**
       - /swagger-ui/**
+      - /swagger-ui.html
       - /swagger-resources/**
       - /webjars/**
       - /auth/v3/api-docs/**
