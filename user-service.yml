@@ -11,10 +11,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  cache:
+    type: simple        # ← use in-memory cache, disables Redis auto-config
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
 
 internal:
   secret: ${INTERNAL_SECRET:local-internal-secret}
 
 logging:
   level:
-    com.founderlink.user: DEBUG
+    com.founderlink.User_Service: DEBUG   # ← corrected package
